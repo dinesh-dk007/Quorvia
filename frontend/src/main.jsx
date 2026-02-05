@@ -3,15 +3,7 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
 import { ClerkProvider } from "@clerk/clerk-react";
-import {
-  Routes,
-  Route,
-  BrowserRouter,
-  useLocation,
-  useNavigationType,
-  createRoutesFromChildren,
-  matchRoutes,
-} from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 
 import * as Sentry from "@sentry/react";
@@ -28,18 +20,16 @@ if (!PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
 }
 
+// Initialize Sentry without router integration to avoid hook errors
 Sentry.init({
   dsn: import.meta.env.VITE_SENTRY_DSN,
   integrations: [
-    Sentry.reactRouterV6BrowserTracingIntegration({
-      useEffect: React.useEffect,
-      useLocation,
-      useNavigationType,
-      createRoutesFromChildren,
-      matchRoutes,
-    }),
+    Sentry.browserTracingIntegration(),
+    Sentry.replayIntegration(),
   ],
   tracesSampleRate: 1.0,
+  replaysSessionSampleRate: 0.1,
+  replaysOnErrorSampleRate: 1.0,
 });
 
 createRoot(document.getElementById("root")).render(
