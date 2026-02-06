@@ -132,7 +132,7 @@ const HomePage = () => {
           </div>
         </div>
 
-        {isCreateModalOpen && <CreateChannelModal onClose={() => setIsCreateModalOpen(false)} />}
+        {isCreateModalOpen && <CreateChannelModal onClose={() => setIsCreateModalOpen(false)} setSearchParams={setSearchParams} />}
       </Chat>
     </div>
   );

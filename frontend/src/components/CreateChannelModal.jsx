@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router";
 import { useChatContext } from "stream-chat-react";
 import * as Sentry from "@sentry/react";
 import toast from "react-hot-toast";
 import { AlertCircleIcon, HashIcon, LockIcon, UsersIcon, XIcon } from "lucide-react";
 
-const CreateChannelModal = ({ onClose }) => {
+const CreateChannelModal = ({ onClose, setSearchParams }) => {
   const [channelName, setChannelName] = useState("");
   const [channelType, setChannelType] = useState("public");
   const [description, setDescription] = useState("");
@@ -14,7 +13,6 @@ const CreateChannelModal = ({ onClose }) => {
   const [users, setUsers] = useState([]);
   const [selectedMembers, setSelectedMembers] = useState([]);
   const [loadingUsers, setLoadingUsers] = useState(false);
-  const [_, setSearchParams] = useSearchParams();
 
   const { client, setActiveChannel } = useChatContext();
 

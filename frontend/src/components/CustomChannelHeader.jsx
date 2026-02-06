@@ -35,6 +35,8 @@ const CustomChannelHeader = () => {
       await channel.sendMessage({
         text: `I've started a video call. Join me here: ${callUrl}`,
       });
+      // Navigate to the call page
+      window.location.href = callUrl;
     }
   };
 
